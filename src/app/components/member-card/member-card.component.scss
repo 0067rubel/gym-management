@@ -1,0 +1,91 @@
+.member-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 1.25rem;
+  transition: all 0.2s;
+  &:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  .avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .member-info {
+    flex: 1;
+    h3 { margin: 0; font-size: 1rem; font-weight: 700; color: #0f172a; }
+    .email { font-size: 0.78rem; color: #64748b; }
+  }
+}
+
+.status-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  &.badge-active { background: #dcfce7; color: #16a34a; }
+  &.badge-inactive { background: #f1f5f9; color: #64748b; }
+  &.badge-suspended { background: #fef2f2; color: #dc2626; }
+}
+
+.card-body {
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #475569;
+    margin-bottom: 0.4rem;
+    .icon { width: 18px; text-align: center; }
+  }
+}
+
+.membership-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  &.type-basic { background: #f1f5f9; color: #475569; }
+  &.type-standard { background: #dbeafe; color: #1d4ed8; }
+  &.type-premium { background: #fef3c7; color: #b45309; }
+  &.type-vip { background: #fdf4ff; color: #9333ea; }
+}
+
+.services {
+  display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem;
+  .service-tag {
+    background: #f1f5f9; color: #475569;
+    font-size: 0.7rem; padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+  }
+}
+
+.card-actions {
+  display: flex; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+
+  button {
+    border: none; cursor: pointer; border-radius: 8px;
+    font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.75rem;
+    transition: all 0.15s;
+  }
+  .btn-pay { background: #f97316; color: white; flex: 1; &:hover { background: #ea6c0a; } }
+  .btn-edit { background: #dbeafe; color: #1d4ed8; flex: 1; &:hover { background: #bfdbfe; } }
+  .btn-delete { background: #fef2f2; color: #dc2626; padding: 0.4rem 0.65rem; &:hover { background: #fee2e2; } }
+}

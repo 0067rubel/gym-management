@@ -1,0 +1,62 @@
+<div class="modal-overlay" (click)="cancel.emit()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ editMember ? '✏️ Edit Member' : '➕ New Member' }}</h2>
+      <button class="close-btn" (click)="cancel.emit()">✕</button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #f="ngForm" class="reg-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" [(ngModel)]="form.name" name="name" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" [(ngModel)]="form.email" name="email" placeholder="john@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Phone *</label>
+          <input type="text" [(ngModel)]="form.phone" name="phone" placeholder="017-XXXXXXXX" required />
+        </div>
+        <div class="form-group">
+          <label>Date of Birth *</label>
+          <input type="date" [(ngModel)]="form.dob" name="dob" required />
+        </div>
+        <div class="form-group">
+          <label>Join Date *</label>
+          <input type="date" [(ngModel)]="form.joinDate" name="joinDate" required />
+        </div>
+        <div class="form-group">
+          <label>Membership Type *</label>
+          <select [(ngModel)]="form.membershipType" name="membershipType" required>
+            <option *ngFor="let t of membershipTypes" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status *</label>
+          <select [(ngModel)]="form.status" name="status" required>
+            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group services-group">
+        <label>Services</label>
+        <div class="services-grid">
+          <label class="service-cb" *ngFor="let s of availableServices">
+            <input type="checkbox" [checked]="isSelected(s)" (change)="toggleService(s)" />
+            <span>{{ s }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="cancel.emit()">Cancel</button>
+        <button type="submit" class="btn-save" [disabled]="f.invalid">
+          {{ editMember ? 'Update Member' : 'Add Member' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

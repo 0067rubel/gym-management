@@ -1,0 +1,37 @@
+<div class="member-card">
+  <div class="card-header">
+    <div class="avatar">{{ initials }}</div>
+    <div class="member-info">
+      <h3>{{ member.name }}</h3>
+      <span class="email">{{ member.email }}</span>
+    </div>
+    <span class="status-badge" [ngClass]="badgeClass">{{ member.status }}</span>
+  </div>
+
+  <div class="card-body">
+    <div class="detail-row">
+      <span class="icon">📞</span>
+      <span>{{ member.phone }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="icon">📅</span>
+      <span>Joined: {{ member.joinDate | date:'mediumDate' }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="icon">🎂</span>
+      <span>DOB: {{ member.dob | date:'mediumDate' }}</span>
+    </div>
+    <div class="membership-badge" [ngClass]="typeClass">
+      ⭐ {{ member.membershipType }}
+    </div>
+    <div class="services" *ngIf="member.services?.length">
+      <span class="service-tag" *ngFor="let s of member.services">{{ s }}</span>
+    </div>
+  </div>
+
+  <div class="card-actions">
+    <button class="btn-pay" (click)="addPayment.emit(member)">💳 Payment</button>
+    <button class="btn-edit" (click)="editMember.emit(member)">✏️ Edit</button>
+    <button class="btn-delete" (click)="deleteMember.emit(member.id)">🗑️</button>
+  </div>
+</div>

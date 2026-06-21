@@ -1,0 +1,41 @@
+<div class="login-wrapper">
+  <div class="login-left">
+    <div class="brand">
+      <div class="logo-icon">💪</div>
+      <h1>IronPeak</h1>
+      <p>Gym Management System</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>500+</span><small>Members</small></div>
+      <div class="stat"><span>12</span><small>Programs</small></div>
+      <div class="stat"><span>98%</span><small>Satisfaction</small></div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to your admin dashboard</p>
+
+      <form (ngSubmit)="onLogin()" #f="ngForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" [(ngModel)]="email" name="email" placeholder="admin@grade.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required />
+        </div>
+        <div class="error-msg" *ngIf="error">{{ error }}</div>
+        <button type="submit" class="btn-login" [disabled]="loading">
+          <span *ngIf="!loading">Sign In →</span>
+          <span *ngIf="loading" class="spinner">Authenticating...</span>
+        </button>
+      </form>
+
+      <div class="hint">
+        <span>Demo credentials: admin&#64;grade.com / admin123</span>
+      </div>
+    </div>
+  </div>
+</div>

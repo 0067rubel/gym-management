@@ -1,0 +1,100 @@
+<div class="dashboard">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">💪</span>
+      <span class="brand-name">IronPeak</span>
+      <span class="brand-sub">Admin</span>
+    </div>
+    <div class="nav-tabs">
+      <button [class.active]="activeTab==='members'" (click)="activeTab='members'">👥 Members</button>
+      <button [class.active]="activeTab==='charts'" (click)="activeTab='charts'">📊 Analytics</button>
+    </div>
+    <div class="nav-right">
+      <span class="user-email">{{ authService.getUser()?.email }}</span>
+      <button class="logout-btn" (click)="authService.logout()">Logout →</button>
+    </div>
+  </nav>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div><strong>{{ stats.total }}</strong><small>Total Members</small></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div><strong>{{ stats.active }}</strong><small>Active Members</small></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div><strong>৳ {{ stats.revenue | number }}</strong><small>Total Revenue</small></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🆕</div>
+      <div><strong>{{ stats.newThisMonth }}</strong><small>New This Month</small></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Members Tab -->
+    <div *ngIf="activeTab === 'members'">
+      <div class="toolbar">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name, email or phone..." />
+        </div>
+        <div class="filters">
+          <select [(ngModel)]="filterType">
+            <option value="">All Types</option>
+            <option>Basic</option><option>Standard</option>
+            <option>Premium</option><option>VIP</option>
+          </select>
+          <select [(ngModel)]="filterStatus">
+            <option value="">All Status</option>
+            <option>Active</option><option>Inactive</option><option>Suspended</option>
+          </select>
+        </div>
+        <button class="btn-add" (click)="showRegistration=true; editingMember=null">+ Add Member</button>
+      </div>
+
+      <div class="members-count">Showing {{ filteredMembers.length }} of {{ members.length }} members</div>
+
+      <div class="members-grid" *ngIf="filteredMembers.length > 0">
+        <app-member-card
+          *ngFor="let member of filteredMembers"
+          [member]="member"
+          (addPayment)="onAddPayment($event)"
+          (editMember)="onEditMember($event)"
+          (deleteMember)="onDeleteMember($event)">
+        </app-member-card>
+      </div>
+
+      <div class="empty-state" *ngIf="filteredMembers.length === 0">
+        <div class="empty-icon">🏋️</div>
+        <p>No members found</p>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div *ngIf="activeTab === 'charts'">
+      <app-charts [membersByType]="membersByType" [monthlyRevenue]="monthlyRevenue"></app-charts>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<app-member-registration
+  *ngIf="showRegistration"
+  [editMember]="editingMember"
+  (save)="onSaveMember($event)"
+  (cancel)="cancelRegistration()">
+</app-member-registration>
+
+<app-payment-modal
+  *ngIf="paymentMember"
+  [member]="paymentMember"
+  [existingPayments]="getPayments(paymentMember.id)"
+  (save)="onSavePayment($event)"
+  (cancel)="paymentMember=null">
+</app-payment-modal>
